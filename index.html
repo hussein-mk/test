@@ -1,64 +1,246 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prosys Technology</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Cairo',sans-serif;
+}
+
+body{
+background:#f8fafc;
+color:#0f172a;
+}
+
+.hero{
+background:linear-gradient(135deg,#0f172a,#1d4ed8);
+color:white;
+padding:80px 20px;
+text-align:center;
+}
+
+.hero h1{
+font-size:48px;
+margin-bottom:15px;
+}
+
+.hero p{
+font-size:20px;
+opacity:.9;
+max-width:700px;
+margin:auto;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:50px 20px;
+}
+
+.services{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-bottom:50px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:18px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+text-align:center;
+}
+
+.card h3{
+margin-bottom:10px;
+color:#2563eb;
+}
+
+.form-box{
+background:white;
+padding:35px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.form-box h2{
+margin-bottom:25px;
+text-align:center;
+}
+
+input,select,textarea{
+width:100%;
+padding:14px;
+margin-bottom:15px;
+border:1px solid #dbeafe;
+border-radius:12px;
+font-size:15px;
+}
+
+button{
+width:100%;
+padding:16px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:12px;
+font-size:18px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+.success{
+display:none;
+background:#dcfce7;
+color:#166534;
+padding:15px;
+border-radius:10px;
+margin-top:15px;
+text-align:center;
+}
+
+footer{
+margin-top:60px;
+background:#0f172a;
+color:white;
+text-align:center;
+padding:25px;
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+<h1>Prosys Technology</h1>
+<p>
+حلول تقنية ذكية لتطوير أعمالك وأتمتة عملياتك الرقمية
+</p>
+</section>
+
+<div class="container">
+
+<div class="services">
+<div class="card">
+<h3>تطوير الأنظمة</h3>
+<p>أنظمة مخصصة للشركات والمؤسسات</p>
+</div>
+
+<div class="card">
+<h3>الأتمتة والذكاء الاصطناعي</h3>
+<p>ربط الأنظمة وتقليل العمل اليدوي</p>
+</div>
+
+<div class="card">
+<h3>تطوير المواقع</h3>
+<p>مواقع احترافية متجاوبة مع جميع الأجهزة</p>
+</div>
+
+<div class="card">
+<h3>التطبيقات</h3>
+<p>تطبيقات Android و iOS</p>
+</div>
+</div>
+
+<div class="form-box">
+
+<h2>طلب استشارة أو حجز موعد</h2>
+
+<form id="clientForm">
+
+<input type="text" id="name" placeholder="اسم العميل" required>
+
+<input type="tel" id="phone" placeholder="رقم الجوال" required>
+
+<input type="email" id="email" placeholder="البريد الإلكتروني">
+
+<input type="text" id="company" placeholder="اسم الشركة">
+
+<select id="service">
+<option value="">اختر الخدمة</option>
+<option>تطوير نظام</option>
+<option>موقع إلكتروني</option>
+<option>تطبيق جوال</option>
+<option>أتمتة أعمال</option>
+<option>استشارة تقنية</option>
+</select>
+
+<input type="date" id="date">
+
+<input type="time" id="time">
+
+<textarea id="notes" rows="4" placeholder="ملاحظات إضافية"></textarea>
+
+<button type="submit">
+إرسال الطلب
+</button>
+
+</form>
+
+<div class="success" id="successMsg">
+تم إرسال بياناتك بنجاح وسيتم التواصل معك قريباً
+</div>
+
+</div>
+
+</div>
+
+<footer>
+© 2026 Prosys Technology
+</footer>
+
 <script>
 document.getElementById("clientForm").addEventListener("submit", async function(e){
 
-    e.preventDefault();
+e.preventDefault();
 
-    const submitButton = document.querySelector("button[type='submit']");
-    submitButton.disabled = true;
-    submitButton.innerText = "جاري الإرسال...";
+const data = {
+"اسم العميل": document.getElementById("name").value,
+"رقم الجوال": document.getElementById("phone").value,
+"البريد الالكتروني": document.getElementById("email").value,
+"اسم الشركة": document.getElementById("company").value,
+"الخدمة": document.getElementById("service").value,
+"تاريخ الموعد": document.getElementById("date").value,
+"وقت الموعد": document.getElementById("time").value,
+"ملاحظات": document.getElementById("notes").value
+};
 
-    const data = {
-        "تاريخ الإرسال": new Date().toLocaleString("ar-SA"),
-        "اسم العميل": document.getElementById("name").value,
-        "رقم الجوال": document.getElementById("phone").value,
-        "البريد الالكتروني": document.getElementById("email").value,
-        "اسم الشركة": document.getElementById("company").value,
-        "الخدمة": document.getElementById("service").value,
-        "تاريخ الموعد": document.getElementById("date").value,
-        "وقت الموعد": document.getElementById("time").value,
-        "ملاحظات": document.getElementById("notes").value
-    };
+try {
 
-    try {
+await fetch(
+"https://husseinmk.app.n8n.cloud/webhook/7b84117c-6cc7-4b64-b91c-b7ac0405262f",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(data)
+}
+);
 
-        const response = await fetch(
-            "https://husseinmk.app.n8n.cloud/webhook/7b84117c-6cc7-4b64-b91c-b7ac0405262f",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            }
-        );
+document.getElementById("successMsg").style.display="block";
+document.getElementById("clientForm").reset();
 
-        if (!response.ok) {
-            throw new Error("Webhook Error");
-        }
+} catch(error){
 
-        document.getElementById("successMsg").innerHTML =
-            "✅ تم إرسال بياناتك بنجاح وسيتم التواصل معك قريباً";
+alert("حدث خطأ أثناء الإرسال");
 
-        document.getElementById("successMsg").style.display = "block";
-
-        document.getElementById("clientForm").reset();
-
-        setTimeout(() => {
-            document.getElementById("successMsg").style.display = "none";
-        }, 5000);
-
-    } catch (error) {
-
-        alert("❌ حدث خطأ أثناء إرسال البيانات، يرجى المحاولة مرة أخرى");
-
-        console.error(error);
-
-    } finally {
-
-        submitButton.disabled = false;
-        submitButton.innerText = "إرسال الطلب";
-
-    }
+}
 
 });
 </script>
+
+</body>
+</html>
