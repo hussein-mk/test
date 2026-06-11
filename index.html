@@ -1,3 +1,5 @@
+</div> <!-- نهاية container -->
+
 <!-- لوحة الإحصائيات -->
 
 <div style="margin-top:40px">
@@ -27,8 +29,6 @@
 
 </div>
 
-<!-- آخر المواعيد -->
-
 <div class="form-box" style="margin-top:40px">
 
 <h2>آخر المواعيد المسجلة</h2>
@@ -36,29 +36,127 @@
 <table style="width:100%;border-collapse:collapse">
 
 <thead>
-
 <tr style="background:#f1f5f9">
-
 <th style="padding:12px">العميل</th>
 <th style="padding:12px">الخدمة</th>
 <th style="padding:12px">التاريخ</th>
-
 </tr>
-
 </thead>
 
 <tbody id="appointmentsTable">
-
 <tr>
-
 <td colspan="3" style="padding:20px;text-align:center">
 لا توجد مواعيد حالياً
 </td>
-
 </tr>
-
 </tbody>
 
 </table>
 
 </div>
+
+<footer>
+© 2026 Prosys Technology
+</footer>
+
+<script>
+
+const WEBHOOK_URL =
+"https://husseinmk.app.n8n.cloud/webhook/02444acc-60af-4ae9-9d14-46600d438d66";
+
+let count = 0;
+
+document.getElementById("clientForm")
+.addEventListener("submit", async function(e){
+
+e.preventDefault();
+
+const btn =
+document.querySelector("button[type='submit']");
+
+btn.disabled = true;
+btn.innerText = "جاري الإرسال...";
+
+const data = {
+
+submitDate:new Date().toISOString(),
+
+name:document.getElementById("name").value,
+phone:document.getElementById("phone").value,
+email:document.getElementById("email").value,
+company:document.getElementById("company").value,
+service:document.getElementById("service").value,
+date:document.getElementById("date").value,
+time:document.getElementById("time").value,
+notes:document.getElementById("notes").value
+
+};
+
+try {
+
+const response = await fetch(
+WEBHOOK_URL,
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(data)
+}
+);
+
+if(response.ok){
+
+count++;
+
+document.getElementById("totalAppointments").innerText = count;
+document.getElementById("todayAppointments").innerText = count;
+document.getElementById("reminders").innerText = count;
+
+const table =
+document.getElementById("appointmentsTable");
+
+if(table.innerText.includes("لا توجد مواعيد")){
+table.innerHTML="";
+}
+
+table.insertAdjacentHTML(
+"afterbegin",
+`
+<tr>
+<td style="padding:12px">${data.name}</td>
+<td style="padding:12px">${data.service}</td>
+<td style="padding:12px">${data.date} ${data.time}</td>
+</tr>
+`
+);
+
+document.getElementById("successMsg").style.display="block";
+
+document.getElementById("clientForm").reset();
+
+setTimeout(()=>{
+document.getElementById("successMsg").style.display="none";
+},4000);
+
+}else{
+
+alert("فشل إرسال البيانات");
+
+}
+
+}catch(error){
+
+alert("تعذر الاتصال بالخادم");
+
+}
+
+btn.disabled = false;
+btn.innerText = "إرسال الطلب";
+
+});
+
+</script>
+
+</body>
+</html>
